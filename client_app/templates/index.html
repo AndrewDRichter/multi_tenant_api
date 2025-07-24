@@ -4,65 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ request.tenant }} - Homepage</title>
+    <title>{{ request.tenant.name }} - Homepage</title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            border-radius: 5px;
-            width: 500px;
-            background-color: #ff0;
+            background-color: #000;
             margin: auto;
-            height: 500px;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            width: 80%;
+            font-family: monospace;
             font-weight: bold;
-            /* transition: all 2s; */
+        }
+
+        body input {
+            background-color: black;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            height: 40px;
+            padding-left: 10px;
+        }
+
+        body button {
+            background-color: #ff00ff;
+            border: none;
+            border-radius: 6px;
+            width: 80px;
+            height: 40px;
+            font-weight: bold;
+            color: white;
+            transition: all .5s;
 
             &:hover {
-                animation: background-changer 15s infinite linear;
+                background-color: black;
+                color: white;
+                cursor: pointer;
             }
         }
 
-        @keyframes background-changer {
-            0% {
-                background-color: #0f0;
-                color: black;
-            }
-
-            33% {
-                background-color: #00f;
-                color: white;
-                transform: scale(0.6);
-            }
-
-            66% {
-                background-color: #f00;
-                color: white;
-                transform: scale(1.4);
-            }
-
-            100% {
-                background-color: #0f0;
-                color: black;
-            }
+        .custom-card-container {
+            border: 2px solid;
+            border-radius: 6px;
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: white;
         }
     </style>
 </head>
 
 <body>
-    <h1>{{ request.tenant.name }} Brands</h1>
-    {% for brand in brands %}
-    <span>{{ brand }}</span>
-    <br />
-    {% endfor %}
+    <div class="custom-card-container">
+        <h1>{{ request.tenant.name }} Brands</h1>
+        {% for brand in brands %}
+        <span>{{ brand }}</span>
+        <br />
+        {% endfor %}
 
-    <form method="POST" action="/brand_create">
-        {% csrf_token %}
-        <input type='text' name='name' placeholder='Create new brand' />
-        <button>Submit</button>
-    </form>
+        <form method="POST" action="/brand_create">
+            {% csrf_token %}
+            <input type='text' name='name' placeholder='Create new brand' />
+            <button>Submit</button>
+        </form>
+    </div>
 </body>
 
 </html>

@@ -1,7 +1,13 @@
 from django.shortcuts import render, redirect
 from .models import Brands
 from django.http import HttpResponse
+from rest_framework.generics import ListCreateAPIView
+from .serializers import BrandSerializer
 
+
+class ListCreateBrandAPIView(ListCreateAPIView):
+    queryset = Brands.objects.all()
+    serializer_class = BrandSerializer
 
 def index(request):
     brands = Brands.objects.all()

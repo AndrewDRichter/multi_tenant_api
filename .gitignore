@@ -1,4 +1,3 @@
-.env 
-manage.py
+.env
 ativa.bat
 */__pycache__

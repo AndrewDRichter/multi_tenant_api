@@ -9,8 +9,10 @@
 # from .views import index, login_view
 from django.urls import path
 from django.contrib import admin
+from .views import ListCreateUserAPIView
 
 urlpatterns = [
+    path('users/', ListCreateUserAPIView.as_view(), name='list-create-users-api-view'),
     path('admin/', admin.site.urls),
     # path('', index),
     # path('login', login_view, name='login'),

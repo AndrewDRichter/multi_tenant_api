@@ -1,12 +1,12 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Brands
+from .models import Entity
 from django.contrib.auth.models import User
 
 
-class BrandSerializer(ModelSerializer):
+class EntitySerializer(ModelSerializer):
 
     class Meta:
-        model = Brands
+        model = Entity
         fields = '__all__'
 
 

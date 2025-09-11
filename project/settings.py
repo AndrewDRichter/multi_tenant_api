@@ -31,21 +31,32 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-SHARED_APPS = [
+SHARED_APPS = (
     'django_tenants',
     'app',
+    'entity_classes',
     'rest_framework',
-    # 'django.contrib.admin',
-    # 'django.contrib.auth',
+    'django.contrib.admin',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+)
 
-TENANT_APPS = ['client_app', 'django.contrib.admin', 'django.contrib.auth']
+TENANT_APPS = (
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    #####
+    'client_app',
+    'django.contrib.admin',
+    # 'django.contrib.auth',
+    'users',
+    )
 
-INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
+INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',

@@ -10,7 +10,3 @@ class Client(TenantMixin):
 
 class Domain(DomainMixin):
     pass
-
-
-class TenantUser(User):
-    tenant = models.ForeignKey(Client, on_delete=models.PROTECT, related_name='users')

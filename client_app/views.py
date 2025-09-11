@@ -1,14 +1,14 @@
 from django.http import HttpResponse
-from .models import Brands
+from .models import Entity
 from django.contrib.auth.models import User
 from rest_framework.generics import ListCreateAPIView
 from django.contrib.auth.decorators import login_required
-from .serializers import BrandSerializer, UserSerializer
+from .serializers import EntitySerializer, UserSerializer
 
 
-class ListCreateBrandAPIView(ListCreateAPIView):
-    queryset = Brands.objects.all()
-    serializer_class = BrandSerializer
+class ListCreateEntityAPIView(ListCreateAPIView):
+    queryset = Entity.objects.all()
+    serializer_class = EntitySerializer
 
 
 class ListCreateUserAPIView(ListCreateAPIView):

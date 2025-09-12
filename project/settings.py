@@ -29,19 +29,15 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+CONTROL_TENANT_SCHEMA = "platform"                # <- escolha o nome do seu tenant de controle
+PLATFORM_ADMIN_GROUP = "platform_admins"
 # Application definition
 
 SHARED_APPS = (
     'django_tenants',
-    'app',
+    'tenants',
     'entity_classes',
-    'rest_framework',
-    'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
 )
 
 TENANT_APPS = (
@@ -49,11 +45,14 @@ TENANT_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #####
-    'client_app',
+    'django.contrib.auth',
     'django.contrib.admin',
-    # 'django.contrib.auth',
-    'users',
+    #####
+    'rest_framework',
+    'rest_framework_simplejwt',
+    #####
+    'entities',
+    'accounts',
     )
 
 INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
@@ -149,8 +148,28 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-TENANT_MODEL = "app.Client"
+TENANT_MODEL = "tenants.Client"
 
-TENANT_DOMAIN_MODEL = "app.Domain"
+TENANT_DOMAIN_MODEL = "tenants.Domain"
 
-PUBLIC_SCHEMA_URLCONF = 'app.urls'
+PUBLIC_SCHEMA_URLCONF = 'tenants.urls'
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     )
+# }
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "accounts.auth.TenantAwareJWTAuthentication",
+    ],
+}
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=720),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'ALGORITHM': 'HS256',
+}

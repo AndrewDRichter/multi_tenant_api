@@ -8,14 +8,18 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('entity_classes', '__first__'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='EntityClass',
+            name='Entity',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                ('name', models.CharField(max_length=200)),
+                ('social_name', models.CharField(max_length=200)),
+                ('document', models.CharField(max_length=100)),
+                ('classes', models.ManyToManyField(related_name='entities', to='entity_classes.entityclass')),
             ],
         ),
     ]

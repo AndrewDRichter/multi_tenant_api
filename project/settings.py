@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-j!v93r+1)gs43!i-8m+j7az8cc_h%^s6gb=@ati96cos@nm=%!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['platform.localhost', 'localhost', 'aromas.localhost']
 
 
 CONTROL_TENANT_SCHEMA = "platform"                # <- escolha o nome do seu tenant de controle
@@ -59,6 +59,7 @@ INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in S
 
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
+    'project.middleware.AdminLockdownMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -173,3 +174,5 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
     'ALGORITHM': 'HS256',
 }
+
+TENANT_LIMIT_SET_CALLS = True
